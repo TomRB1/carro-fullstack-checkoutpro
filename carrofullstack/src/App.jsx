@@ -5,30 +5,39 @@ function App() {
 
   const { data, loading } = useFetch()
 
-  if (loading) {
-    return <h1>Cargando...</h1>
-  }
+  if (loading) return <h1>Cargando...</h1>
 
   return (
     <>
-      <h1>Tienda</h1>
+      <h1>Tienda Online</h1>
 
-      <div>
+      <div className="products-container">
+
         {data.map(product => (
-          <div key={product.id}>
+
+          <div className="card" key={product.id}>
+
             <img
               src={product.image}
               alt={product.title}
-              width="100"
             />
 
             <h3>{product.title}</h3>
 
-            <p>${product.price}</p>
+            <p>{product.category}</p>
 
-            <button>Agregar al carrito</button>
+            <p className='price'>
+              ${product.price}
+            </p>
+
+            <button>
+              Agregar al carrito
+            </button>
+
           </div>
+
         ))}
+
       </div>
     </>
   )
