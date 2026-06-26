@@ -19,7 +19,7 @@ app.add_middleware(
 class Producto(BaseModel):
     id: int
     title: str
-    price: float
+    unit_price: float
     quantity: int
 
 class Carrito(BaseModel):
