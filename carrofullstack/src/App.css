@@ -1,85 +1,206 @@
-main{
-    width:95%;
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:3fr 1fr;
-    gap:30px;
-
-    align-items:start;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eef1f5;
+  color: #111;
+}
+
+/* HEADER */
 header{
-    background:#2563eb;
-    color:white;
-    padding:20px;
-    margin-bottom:30px;
+  background: #2563eb;
+  color: white;
+  padding: 18px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
-header h1{
-    color:white;
-    margin:0;
+/* LAYOUT PRINCIPAL */
+main{
+  width: 95%;
+  margin: 25px auto;
+
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 25px;
+
+  align-items: start;
 }
 
+/* PRODUCTOS */
+.products-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card{
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+/* IMAGEN */
+.card img{
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+/* TITULO */
+.card h3{
+  font-size: 0.95rem;
+  text-align: center;
+  margin: 8px 0;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* CATEGORIA */
 .category{
-    background:#ececec;
-    padding:5px 12px;
-    border-radius:20px;
-    font-size:.8rem;
-    text-transform:capitalize;
+  font-size: 0.75rem;
+  background: #f0f0f0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin: 6px 0;
+  text-transform: capitalize;
+  color: #555;
 }
 
-.cart{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 4px 10px rgba(0,0,0,.1);
+/* PRECIO */
+.price{
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2563eb;
+  margin: 8px 0;
+}
 
-    position:sticky;
-    top:20px;
+/* BOTON AGREGAR */
+.card button{
+  width: 100%;
+  margin-top: auto;
+
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: white;
+
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.card button:hover{
+  background: #1d4ed8;
+}
+
+/* CARRITO */
+.cart{
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  position: sticky;
+  top: 20px;
+
+  max-height: 90vh;   /* 👈 importante */
+  overflow-y: auto;   /* 👈 scroll interno */
 }
 
 .cart h2{
-    margin-bottom:20px;
+  margin-bottom: 15px;
 }
 
 .cart-item{
-    display:flex;
-    gap:10px;
-    margin-bottom:20px;
-    align-items:center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .cart-item img{
-    width:60px;
-    height:60px;
-    object-fit:contain;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
 
 .cart-item h4{
-    font-size:.9rem;
-    margin-bottom:5px;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
 }
 
 .quantity{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-top:8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
 }
 
 .quantity button{
-    width:30px;
-    height:30px;
+  width: 25px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+  background: #ddd;
+  border-radius: 5px;
 }
 
+/* REMOVE */
 .remove{
-    margin-left:auto;
-    background:red !important;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #ef4444;
+  flex-shrink: 0;
 }
 
+/* TOTAL */
+.cart h3{
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+/* CHECKOUT */
 .checkout{
-    width:100%;
-    margin-top:20px;
-    background:#16a34a !important;
+  width: 100%;
+  margin-top: 10px;
+
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+
+  background: #16a34a;
+  color: white;
+
+  cursor: pointer;
+}
+
+.checkout:hover{
+  background: #12833a;
 }

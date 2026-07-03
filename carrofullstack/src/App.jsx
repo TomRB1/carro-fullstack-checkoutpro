@@ -116,9 +116,13 @@ function App() {
 
           <h3>Total: ${totalCart}</h3>
 
-          <button className="checkout" onClick={() => sendCart(cart)}>    
+          <button
+            className="checkout"
+            onClick={() => sendCart(cart)}
+          >
             Finalizar compra
           </button>
+          
 
         </aside>
 
