@@ -10,21 +10,56 @@ export default function useCart(){
 
     //convierte de objeto a texto
     useEffect(() => {
-        localStorage.setItem("cartItems", JSON.stringify(cart))
+        localStorage.setItem("cartItem", JSON.stringify(cart))
     }, [cart])
 
     //agregar
-    const add = (product) => {}
+    const add = (product) => {
+        setCart(prevCart => {
+            const matchProduct = prevCart.find(
+                element => element.id === product.id
+            )
+            if(matchProduct){
+                return prevCart.map(element =>
+                    element.id === product.id ? {...element, quantity: element.quantity + 1} : element
+                )
+            }
+            return [ ...prevCart, {
+                    ...product, unit_price: product.price, quantity: 1
+                }
+            ]
+        })
+    }   
+
+
     //eliminar
-    const remove = (product) => {}
+    const remove = (product) => {
+        setCart(prevCart => prevCart.filter( element => element.id !== product.id))
+    }
+
     //añadir mas
-    const more = (product) => {}
+    const more = (product) => {
+        setCart(prevCart => prevCart.map( element => element.id === product.id ? {...element,
+            quantity: element.quantity + 1 
+        } : element))
+    }
+
     //restar
-    const less = (product) => {}
+    const less = (product) => {
+        setCart(prevCart => prevCart.map(element => element.id === product.id ? { ...product,
+             quantity: product.quantity - 1 >= 0 ? product.quantity - 1 : 0 } : element))
+    
+    }
+
 
     //Esto guarda el precio del carro para que no se borre al renderizar todo de nuevo
-    const totalCart = useMemo(() =>{
+    const totalCart = useMemo(() => {
+        return cart.reduce(
+            (total, item) =>
+                total + (item.unit_price * item.quantity),
+            0
+        )
+    }, [cart])
 
-    })
-
+    return {add, remove, more, less, totalCart, cart}
 }

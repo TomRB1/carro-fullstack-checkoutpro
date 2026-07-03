@@ -1,46 +1,131 @@
-import './App.css'
-import { useFetch } from './hooks/useFetch'
+import "./App.css";
+import { useFetch } from "./hooks/useFetch";
+import useCart from "./hooks/useCart";
+import { useBackend } from "./hooks/useBackend";
+
+
 
 function App() {
 
-  const { data, loading } = useFetch()
+  const { sendCart } = useBackend();
+  const { data, loading } = useFetch();
+  const { cart, add, remove, more, less, totalCart } = useCart();
 
-  if (loading) return <h1>Cargando...</h1>
+  if (loading) {
+    return <h1>Cargando productos...</h1>;
+  }
 
   return (
     <>
-      <h1>Tienda Online</h1>
 
-      <div className="products-container">
+      <header>
+        <h1>Tienda Online</h1>
+      </header>
 
-        {data.map(product => (
+      <main>
 
-          <div className="card" key={product.id}>
+        <section className="products-container">
 
-            <img
-              src={product.image}
-              alt={product.title}
-            />
+          {data.map(product => (
 
-            <h3>{product.title}</h3>
+            <div className="card" key={product.id}>
 
-            <p>{product.category}</p>
+              <img
+                src={product.image}
+                alt={product.title}
+              />
 
-            <p className='price'>
-              ${product.price}
-            </p>
+              <h3>{product.title}</h3>
 
-            <button>
-              Agregar al carrito
-            </button>
+              <p className="category">
+                {product.category}
+              </p>
 
-          </div>
+              <p className="price">
+                ${product.price}
+              </p>
 
-        ))}
+              <button onClick={() => add(product)}>
+                Agregar al carrito
+              </button>
 
-      </div>
+            </div>
+
+          ))}
+
+        </section>
+
+        <aside className="cart">
+
+          <h2>Carrito</h2>
+
+          {
+            cart.length === 0
+              ? <p>El carrito está vacío.</p>
+              : cart.map(product => (
+
+                <div
+                  className="cart-item"
+                  key={product.id}
+                >
+
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                  />
+
+                  <div>
+
+                    <h4>{product.title}</h4>
+
+                    <p>
+                      ${product.unit_price}
+                    </p>
+
+                    <div className="quantity">
+
+                      <button
+                        onClick={() => less(product)}
+                      >
+                        -
+                      </button>
+
+                      <span>{product.quantity}</span>
+
+                      <button
+                        onClick={() => more(product)}
+                      >
+                        +
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                  <button
+                    className="remove"
+                    onClick={() => remove(product)}
+                  >
+                    ✖
+                  </button>
+
+                </div>
+
+              ))
+          }
+
+          <h3>Total: ${totalCart}</h3>
+
+          <button className="checkout" onClick={() => sendCart(cart)}>    
+            Finalizar compra
+          </button>
+
+        </aside>
+
+      </main>
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;
